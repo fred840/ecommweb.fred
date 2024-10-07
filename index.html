@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <link rel="stylesheet" href="style.css">
+    <title>FREDTECH LTD - Purchase and Delivery</title>
+</head>
+<body>
+
+    <header>
+        <h1>FREDTECH LTD</h1>
+    </header>
+
+    <section>
+        <div class="description">
+            <h2>About Us</h2>
+            <p>FREDTECH LTD is a leading provider of high-quality smartphones,electronics and accessories, offering the latest technology at competitive prices. We strive to bring you the best devices for both personal and professional use.</p>
+        </div>
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Register to fredtech ltd</h2>
+        <form action="register.php" method="POST">
+            <label for="name"> userame</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+                <option value="">Select your country</option>
+                <option value="usa">USA</option>
+                <option value="canada">Canada</option>
+                <option value="kenya">kenya</option>
+                <option value="australia">Australia</option>
+            </select>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>
+
+        <div class="products">
+            <h2>Our Products</h2>
+            <ul>
+                <li>iphone 15 <img src="15.jpg" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">ksh 150000 <button onclick="addToCart('Smartphone Model A', 500)">Add to Cart</button></li>
+                <li>iphone 14 <img src="14.jpg" alt="">-ksh 120000 <button onclick="addToCart('Smartphone Model B', 700)">Add to Cart</button></li>
+                <li>samsung s15 <img src="sam.jpg" alt="">-ksh 56000 <button onclick="addToCart('samsung 15', 400)">Add to Cart</button></li>
+                <li>mac book <img src="mac.jpg" alt=""> -ksh 99000 <button onclick="addToCart('mac book', 300)">Add to Cart</button></li>
+                <li> epson printer  <img src="print.jpg" alt="">-ksh 20000 <button onclick="addToCart('epson printer', 700)">Add to Cart</button></li>
+                <li>scanner <img src="scan.jpg" alt="">-ksh 24000 <button onclick="addToCart('scanner', 400)">Add to Cart</button></li>
+                <li>wifirouters <img src="router.jpg" alt="">-ksh 9999 <button onclick="addToCart('wifi router', 300)">Add to Cart</button></li>
+            </ul>
+        </div>
+
+        <div class="cart">
+            <h2>Your Cart</h2>
+            <ul id="cartItems"></ul>
+            <p><strong>Total:</strong> $<span id="totalPrice">0</span></p>
+            <h3>Delivery Options</h3>
+            <label>
+                <input type="radio" name="delivery" value="standard" checked> Standard Delivery (Free)
+            </label><br>
+            <label>
+                <input type="radio" name="delivery" value="express"> Express Delivery ($30)
+            </label>
+            <br><br>
+            <button onclick="order()">Proceed to order</button>
+        </div>
+        
+
+      
+
+    <script>
+        let cart = [];
+        let totalPrice = 0;
+
+        // Function to add items to the cart
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            totalPrice += price;
+            updateCart();
+    
+        }
+
+        // Update cart display and total price
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const totalPriceElement = document.getElementById('totalPrice');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.product + ' - $' + item.price;
+                cartItems.appendChild(li);
+            });
+            totalPriceElement.textContent = totalPrice;
+
+            // Show cart section when items are added
+            if (cart.length > 0) {
+                document.querySelector('.cart').style.display = 'block';
+            }
+        }
+
+        // Checkout function
+        function order() {
+            const deliveryOption = document.querySelector('input[name="delivery"]:checked').value;
+            let deliveryCost = 0;
+            if (deliveryOption === 'express') {
+                deliveryCost = 30;
+            }
+
+            const finalTotal = totalPrice + deliveryCost;
+            alert('Your total amount is $' + finalTotal + '. Thank you for your purchase!');
+        }
+    </script>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Pay After Delivery</title>
+    
+    </head>
+    <body>
+    
+    <div class="form-container">
+      <h2>Pay After Delivery Form</h2>
+      <form id="paymentForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+    
+        <label for="address">Delivery Address:</label>
+        <input type="text" id="address" name="address" required>
+    
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
+    
+        <button type="button" onclick="submitForm()">Submit</button>
+      </form>
+    
+      <div id="confirmationMessage" style="display:none; margin-top: 20px;">
+        <h3>Order Confirmed!</h3>
+        <p>Thank you for your order. You will pay after delivery.</p>
+      </div>
+    </div>
+    
+    <script>
+      function submitForm() {
+        const name = document.getElementById('name').value;
+        const address = document.getElementById('address').value;
+        const phone = document.getElementById('phone').value;
+    
+        if (name && address && phone) {
+          // Simulate form submission and payment confirmation
+          document.getElementById('paymentForm').style.display = 'none';
+          document.getElementById('confirmationMessage').style.display = 'block';
+        } else {
+          alert('Please fill in all the required fields.');
+        }
+      }
+    </script>
+    
+      <div class="contact">
+        <h2>Contact Us</h2
+        <ul>
+            <li>Email: fred@gmail.com</li>
+            <li>Phone: 0704990372</li>
+            <li>Address: tech Street, nairobi . kenya</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; fredtech Phones. All Rights Reserved.</p>
+</footer>
+
+
+</body>
+</html>
